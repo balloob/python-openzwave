@@ -23,12 +23,7 @@ You should have received a copy of the GNU General Public License
 along with python-openzwave. If not, see http://www.gnu.org/licenses.
 
 """
-from collections import namedtuple
-import thread
-import time
-import openzwave
 import logging
-from threading import Timer
 from openzwave.object import ZWaveObject
 from .util import isstr
 

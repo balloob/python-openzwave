@@ -26,11 +26,8 @@ along with python-openzwave. If not, see http://www.gnu.org/licenses.
 """
 from .util import dispatcher
 import logging
-import libopenzwave
-import openzwave
 import time
-from openzwave.object import ZWaveException, ZWaveTypeException, ZWaveObject
-from openzwave.node import ZWaveNode
+from openzwave.object import ZWaveObject
 from libopenzwave import PyStatDriver
 
 logging.getLogger('openzwave').addHandler(logging.NullHandler())

@@ -23,13 +23,8 @@ You should have received a copy of the GNU General Public License
 along with python-openzwave. If not, see http://www.gnu.org/licenses.
 
 """
-import libopenzwave
-from collections import namedtuple
-import thread
-import time
 import logging
-from openzwave.object import ZWaveException, ZWaveCommandClassException
-from openzwave.object import ZWaveObject, NullLoggingHandler, ZWaveNodeInterface
+from openzwave.object import ZWaveObject
 from openzwave.group import ZWaveGroup
 from openzwave.value import ZWaveValue
 from openzwave.command import ZWaveNodeBasic, ZWaveNodeSwitch
