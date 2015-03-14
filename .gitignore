@@ -1,4 +1,3 @@
-syntax: glob
 *.orig
 *.rej
 *~
@@ -18,6 +17,3 @@ lib/libopenzwave.cpp
 debian/python-openzwave
 zwcfg_*
 install.files
-
-syntax: regexp
-.*\#.*\#$
