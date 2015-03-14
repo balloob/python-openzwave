@@ -30,6 +30,7 @@ import time
 import openzwave
 import logging
 from openzwave.object import ZWaveObject
+from .util import isstr
 
 logging.getLogger('openzwave').addHandler(logging.NullHandler())
 
@@ -80,7 +81,7 @@ class ZWaveScene(ZWaveObject):
         :rtype: str
 
         """
-        return self._network.manager.getSceneLabel(self.object_id)
+        return self._network.manager.getSceneLabel(self.object_id).decode("UTF-8")
 
     @label.setter
     def label(self, value):
@@ -91,7 +92,7 @@ class ZWaveScene(ZWaveObject):
         :type value: str
 
         """
-        self._network.manager.setSceneLabel(self.object_id, value)
+        self._network.manager.setSceneLabel(self.object_id, value.encode("UTF-8"))
 
     def create(self, label=None):
         """
@@ -108,7 +109,7 @@ class ZWaveScene(ZWaveObject):
         if scene_id != 0 :
             self._object_id = scene_id
             if label is not None:
-                self.label = label
+                self.label = label.encode("UTF-8")
         return scene_id
 
     def add_value(self, value_id, value_data):
@@ -121,6 +122,9 @@ class ZWaveScene(ZWaveObject):
         :type value_data: variable
 
         """
+        if isstr(value_data):
+            value_data = value_data.encode("UTF-8")
+
         ret = self._network.manager.addSceneValue(self.scene_id, value_id, value_data)
         if ret == 1:
             return True
@@ -136,6 +140,9 @@ class ZWaveScene(ZWaveObject):
         :type value_data: variable
 
         """
+        if isstr(value_data):
+            value_data = value_data.encode("UTF-8")
+
         ret = self._network.manager.setSceneValue(self.scene_id, value_id, value_data)
         if ret == 1:
             return True
