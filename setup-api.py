@@ -31,6 +31,11 @@ import glob
 import os
 import sys
 
+if sys.hexversion >= 0x3000000:
+    dispatch_package = 'pydispatcher >= 2.0.5'
+else:
+    dispatch_package = 'Louie >= 1.1'
+
 DEBIAN_PACKAGE = False
 filtered_args = []
 
@@ -74,12 +79,12 @@ setup(
   name = 'python-openzwave-api',
   author='Sébastien GALLET aka bibi2100 <bibi21000@gmail.com>',
   author_email='bibi21000@gmail.com',
-  url='http://code.google.com/p/python-openzwave',
+  url='https://github.com/nechry/python-openzwave',
   #Need to update libopenzwave.pyx too
   version = '0.2.6',
   package_dir = {'openzwave' : 'api', 'pyozwman' : 'manager' },
   #The following line install config drectory in share/python-openzwave
   data_files = data_files,
   packages = ['openzwave', 'pyozwman' ],
-  install_requires=[ 'nose >= 0.8.3', 'Louie >= 1.1' ]
+  install_requires=[ 'nose >= 0.8.3', dispatch_package ]
 )
