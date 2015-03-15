@@ -1,7 +1,7 @@
 #!/bin/bash -e
 
 CLEAN=0
-[ 'u'$1 == 'uclean' ] && CLEAN=1
+[ "$1" = 'clean' ] && CLEAN=1
 
 echo "-----------------------------------------------------------------"
 echo "|   Build openzwave                                             |"
@@ -9,7 +9,11 @@ echo "-----------------------------------------------------------------"
 rm -Rf openzwave/cpp/src/vers.cpp
 cd openzwave/
 [ $CLEAN -eq 1 ] && make clean
-make
+
+echo "Applying ugly patch to openzwave to work around bug in Cython"
+sed -i '253s/.*//' cpp/src/value_classes/ValueID.h
+
+VERSION_REV=0 make
 cd ..
 
 echo "-----------------------------------------------------------------"
