@@ -17,9 +17,14 @@ To enter the development environment, run the following command:
 
 This will open a shell in a linux environment. You are now ready to develop!
 
-To build and install, run:
+To build and install for Python 2, run:
 
   ./compile.sh
   ./install.sh
+
+To build and install for Python 3, run:
+
+  ./compile.sh --python3
+  ./install.sh --python3
 
 Enjoy!
