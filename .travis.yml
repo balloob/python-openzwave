@@ -5,20 +5,20 @@ cache:
     - $HOME/.pip-cache/
 python:
   - "2.7"
-  - "3.2"
-  - "3.3"
+  # - "3.2"
+  # - "3.3"
   - "3.4"
 install:
 #  - env
   - pip install cython
 # command to run tests
 script:
-  - ./update.sh
-  - ./compile.sh
-# package dependencies
+  - if [[ $TRAVIS_PYTHON_VERSION = 2.7 ]]; then ./compile.sh; fi
+  - if [[ $TRAVIS_PYTHON_VERSION != 2.7 ]]; then ./compile.sh --python3; fi
 before_install:
 #  - env
   - sudo apt-get update -y -qq
   - sudo apt-get install -y build-essential python-dev cython
   - sudo apt-get install -y python-dev python-setuptools python-louie
   - sudo apt-get install -y build-essential libudev-dev g++ make
+  - sudo apt-get install -y python3-setuptools python3-pip
