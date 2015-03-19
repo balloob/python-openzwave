@@ -93,7 +93,7 @@ class ZWaveNode( ZWaveObject,
         :rtype: str
 
         """
-        return self._network.manager.getNodeName(self.home_id, self.object_id)
+        return self._network.manager.getNodeName(self.home_id, self.object_id).decode("UTF-8")
 
     @name.setter
     def name(self, value):
@@ -104,7 +104,7 @@ class ZWaveNode( ZWaveObject,
         :type value: str
 
         """
-        self._network.manager.setNodeName(self.home_id, self.object_id, value)
+        self._network.manager.setNodeName(self.home_id, self.object_id, value.encode("UTF-8"))
 
     @property
     def location(self):
@@ -114,7 +114,7 @@ class ZWaveNode( ZWaveObject,
         :rtype: str
 
         """
-        return self._network.manager.getNodeLocation(self.home_id, self.object_id)
+        return self._network.manager.getNodeLocation(self.home_id, self.object_id).decode("UTF-8")
 
     @location.setter
     def location(self, value):
@@ -125,7 +125,7 @@ class ZWaveNode( ZWaveObject,
         :type value: str
 
         """
-        self._network.manager.setNodeLocation(self.home_id, self.object_id, value)
+        self._network.manager.setNodeLocation(self.home_id, self.object_id, value.encode("UTF-8"))
 
     @property
     def product_name(self):
@@ -135,7 +135,7 @@ class ZWaveNode( ZWaveObject,
         :rtype: str
 
         """
-        return self._network.manager.getNodeProductName(self.home_id, self.object_id)
+        return self._network.manager.getNodeProductName(self.home_id, self.object_id).decode("UTF-8")
 
     @product_name.setter
     def product_name(self, value):
@@ -146,7 +146,7 @@ class ZWaveNode( ZWaveObject,
         :type value: str
 
         """
-        self._network.manager.setNodeProductName(self.home_id, self.object_id, value)
+        self._network.manager.setNodeProductName(self.home_id, self.object_id, value.encode("UTF-8"))
 
     @property
     def product_type(self):
@@ -156,7 +156,7 @@ class ZWaveNode( ZWaveObject,
         :rtype: str
 
         """
-        return self._network.manager.getNodeProductType(self.home_id, self.object_id)
+        return self._network.manager.getNodeProductType(self.home_id, self.object_id).decode("UTF-8")
 
     @property
     def product_id(self):
@@ -166,7 +166,7 @@ class ZWaveNode( ZWaveObject,
         :rtype: str
 
         """
-        return self._network.manager.getNodeProductId(self.home_id, self.object_id)
+        return self._network.manager.getNodeProductId(self.home_id, self.object_id).decode("UTF-8")
 
     @property
     def capabilities(self):
@@ -277,7 +277,7 @@ class ZWaveNode( ZWaveObject,
         :rtype: str
 
         """
-        return self._network.manager.COMMAND_CLASS_DESC[class_id]
+        return self._network.manager.COMMAND_CLASS_DESC[class_id].decode("UTF-8")
 
     def get_command_class_genres(self):
         """
@@ -431,6 +431,8 @@ class ZWaveNode( ZWaveObject,
         :rtype: bool
 
         """
+        value = value.encode("UTF-8")
+
         if field == "name":
             self.name=value
         elif field == "location":
@@ -459,7 +461,7 @@ class ZWaveNode( ZWaveObject,
         :rtype: str
 
         """
-        return self._network.manager.getNodeManufacturerId(self.home_id, self.object_id)
+        return self._network.manager.getNodeManufacturerId(self.home_id, self.object_id).decode("UTF-8")
 
     @property
     def manufacturer_name(self):
@@ -469,7 +471,7 @@ class ZWaveNode( ZWaveObject,
         :rtype: str
 
         """
-        return self._network.manager.getNodeManufacturerName(self.home_id, self.object_id)
+        return self._network.manager.getNodeManufacturerName(self.home_id, self.object_id).decode("UTF-8")
 
     @manufacturer_name.setter
     def manufacturer_name(self, value):
@@ -480,7 +482,7 @@ class ZWaveNode( ZWaveObject,
         :type value: str
 
         """
-        self._network.manager.setNodeManufacturerName(self.home_id, self.object_id, value)
+        self._network.manager.setNodeManufacturerName(self.home_id, self.object_id, value.encode("UTF-8"))
 
     @property
     def generic(self):
@@ -765,7 +767,7 @@ class ZWaveNode( ZWaveObject,
         :rtype: string
 
         """
-        return self._network.manager.getNodeQueryStage(self.home_id, self.object_id)
+        return self._network.manager.getNodeQueryStage(self.home_id, self.object_id).decode("UTF-8")
 
     @property
     def isReady(self):
@@ -805,4 +807,4 @@ class ZWaveNode( ZWaveObject,
         Get a human-readable label describing the node
         :rtype: str
         """
-        return self._network.manager.getNodeType(self.home_id, self.object_id)
+        return self._network.manager.getNodeType(self.home_id, self.object_id).decode("UTF-8")

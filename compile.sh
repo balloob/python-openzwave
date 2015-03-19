@@ -1,5 +1,11 @@
 #!/bin/bash -e
 
+if [[ $* == *--python3* ]]; then
+  PYEX=python3
+else
+  PYEX=python
+fi
+
 CLEAN=0
 [ "$1" = 'clean' ] && CLEAN=1
 
@@ -18,13 +24,13 @@ cd ..
 echo "-----------------------------------------------------------------"
 echo "|   Build python-openzwave                                      |"
 echo "-----------------------------------------------------------------"
-[ $CLEAN -eq 1 ] && python setup-lib.py clean
-[ $CLEAN -eq 1 ] && python setup-api.py clean
+[ $CLEAN -eq 1 ] && $PYEX setup-lib.py clean
+[ $CLEAN -eq 1 ] && $PYEX setup-api.py clean
 [ $CLEAN -eq 1 ] && rm -Rf build/
 [ $CLEAN -eq 1 ] && rm -Rf docs/_build
 [ $CLEAN -eq 1 ] && rm lib/libopenzwave.cpp
-python setup-lib.py build
-python setup-api.py build
+$PYEX setup-lib.py build
+$PYEX setup-api.py build
 
 #Remove the doc generattion as it fails on Ubuntu 10.04
 #if [ u != $(which sphinx-build)u ] ; then

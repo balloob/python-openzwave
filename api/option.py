@@ -84,7 +84,11 @@ class ZWaveOption(libopenzwave.PyOptions):
         except:
             raise ZWaveException("Can't find user directory %s" % user_path)
         self._cmd_line = cmd_line
-        self.create(self._config_path, self._user_path, self._cmd_line)
+
+        self.create(
+            self._config_path.encode("UTF-8"),
+            self._user_path.encode("UTF-8"),
+            self._cmd_line.encode("UTF-8"))
 
     def set_log_file(self, logfile):
         """
@@ -94,7 +98,7 @@ class ZWaveOption(libopenzwave.PyOptions):
         :type logfile: str
 
         """
-        return self.addOptionString("LogFileName", logfile, False)
+        return self.addOptionStringUTF8("LogFileName", logfile, False)
 
     def set_logging(self, status):
         """
@@ -104,7 +108,7 @@ class ZWaveOption(libopenzwave.PyOptions):
         :type status: bool
 
         """
-        return self.addOptionBool("Logging", status)
+        return self.addOptionBoolUTF8("Logging", status)
 
     def set_append_log_file(self, status):
         """
@@ -114,7 +118,7 @@ class ZWaveOption(libopenzwave.PyOptions):
         :type status: bool
 
         """
-        return self.addOptionBool("AppendLogFile", status)
+        return self.addOptionBoolUTF8("AppendLogFile", status)
 
     def set_console_output(self, status):
         """
@@ -124,7 +128,7 @@ class ZWaveOption(libopenzwave.PyOptions):
         :type status: bool
 
         """
-        return self.addOptionBool("ConsoleOutput", status)
+        return self.addOptionBoolUTF8("ConsoleOutput", status)
 
     def set_save_log_level(self, level):
         """
@@ -146,7 +150,7 @@ class ZWaveOption(libopenzwave.PyOptions):
             * 'Internal':"Used only within the log class (uses existing timestamp, etc.)"
 
         """
-        return self.addOptionInt("SaveLogLevel", PyLogLevels[level])
+        return self.addOptionIntUTF8("SaveLogLevel", PyLogLevels[level])
 
     def set_queue_log_level(self, level):
         """
@@ -168,7 +172,7 @@ class ZWaveOption(libopenzwave.PyOptions):
             * 'Internal':"Used only within the log class (uses existing timestamp, etc.)"
 
         """
-        return self.addOptionInt("QueueLogLevel", PyLogLevels[level])
+        return self.addOptionIntUTF8("QueueLogLevel", PyLogLevels[level])
 
     def set_dump_trigger_level(self, level):
         """
@@ -190,7 +194,7 @@ class ZWaveOption(libopenzwave.PyOptions):
             * 'Internal':"Used only within the log class (uses existing timestamp, etc.)"
 
         """
-        return self.addOptionInt("DumpTriggerLevel", PyLogLevels[level])
+        return self.addOptionIntUTF8("DumpTriggerLevel", PyLogLevels[level])
 
     def set_associate(self, status):
         """
@@ -200,7 +204,7 @@ class ZWaveOption(libopenzwave.PyOptions):
         :type status: bool
 
         """
-        return self.addOptionBool("Associate", status)
+        return self.addOptionBoolUTF8("Associate", status)
 
     def set_exclude(self, commandClass):
         """
@@ -210,7 +214,7 @@ class ZWaveOption(libopenzwave.PyOptions):
         :type commandClass: str
 
         """
-        return self.addOptionString("Exclude", commandClass, True)
+        return self.addOptionStringUTF8("Exclude", commandClass, True)
 
     def set_include(self, commandClass):
         """
@@ -220,7 +224,7 @@ class ZWaveOption(libopenzwave.PyOptions):
         :type commandClass: str
 
         """
-        return self.addOptionString("Include", commandClass, True)
+        return self.addOptionStringUTF8("Include", commandClass, True)
 
     def set_notify_transactions(self, status):
         """
@@ -230,7 +234,7 @@ class ZWaveOption(libopenzwave.PyOptions):
         :type status: bool
 
         """
-        return self.addOptionBool("NotifyTransactions", status)
+        return self.addOptionBoolUTF8("NotifyTransactions", status)
 
     def set_interface(self, port):
         """
@@ -240,7 +244,7 @@ class ZWaveOption(libopenzwave.PyOptions):
         :type port: str
 
         """
-        return self.addOptionString("Interface", port, True)
+        return self.addOptionStringUTF8("Interface", port, True)
 
     def set_save_configuration(self, status):
         """
@@ -250,7 +254,7 @@ class ZWaveOption(libopenzwave.PyOptions):
         :type status: bool
 
         """
-        return self.addOptionBool("SaveConfiguration", status)
+        return self.addOptionBoolUTF8("SaveConfiguration", status)
 
     def set_driver_max_attempts(self, attempts):
         """
@@ -260,7 +264,7 @@ class ZWaveOption(libopenzwave.PyOptions):
         :type attempts: int
 
         """
-        return self.addOptionInt("DriverMaxAttempts", attempts)
+        return self.addOptionIntUTF8("DriverMaxAttempts", attempts)
 
     def set_poll_interval(self, interval):
         """
@@ -270,7 +274,7 @@ class ZWaveOption(libopenzwave.PyOptions):
         :type interval: int
 
         """
-        return self.addOptionInt("PollInterval", interval)
+        return self.addOptionIntUTF8("PollInterval", interval)
 
     def set_interval_between_polls(self, status):
         """
@@ -280,7 +284,7 @@ class ZWaveOption(libopenzwave.PyOptions):
         :type status: bool
 
         """
-        return self.addOptionBool("IntervalBetweenPolls", status)
+        return self.addOptionBoolUTF8("IntervalBetweenPolls", status)
 
     def set_suppress_value_refresh(self, status):
         """
@@ -290,7 +294,7 @@ class ZWaveOption(libopenzwave.PyOptions):
         :type status: bool
 
         """
-        return self.addOptionBool("SuppressValueRefresh", status)
+        return self.addOptionBoolUTF8("SuppressValueRefresh", status)
 
     @property
     def device(self):
@@ -321,3 +325,14 @@ class ZWaveOption(libopenzwave.PyOptions):
 
         """
         return self._user_path
+
+    def addOptionIntUTF8(self, option, value):
+        return self.addOptionInt(option.encode("UTF-8"), value)
+
+    def addOptionBoolUTF8(self, option, value):
+        return self.addOptionBool(option.encode("UTF-8"), value)
+
+    def addOptionStringUTF8(self, option, value, someBool):
+        """ Add an UTF-8 option string. """
+        return self.addOptionString(
+            option.encode("UTF-8"), value.encode("UTF-8"), someBool)

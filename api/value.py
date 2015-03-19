@@ -30,6 +30,7 @@ import openzwave
 import logging
 from threading import Timer
 from openzwave.object import ZWaveObject
+from .util import isstr
 
 logging.getLogger('openzwave').addHandler(logging.NullHandler())
 
@@ -131,7 +132,7 @@ class ZWaveValue(ZWaveObject):
 
         :rtype: str
         """
-        return self._network.manager.getValueLabel(self.value_id)
+        return self._network.manager.getValueLabel(self.value_id).decode("UTF-8")
 
     @label.setter
     def label(self, value):
@@ -141,7 +142,7 @@ class ZWaveValue(ZWaveObject):
         :param value: The new label value
         :type value: str
         """
-        self._network.manager.setValueLabel(self.value_id, value)
+        self._network.manager.setValueLabel(self.value_id, value.encode("UTF-8"))
 
     @property
     def help(self):
@@ -150,7 +151,7 @@ class ZWaveValue(ZWaveObject):
 
         :rtype: str
         """
-        return self._network.manager.getValueHelp(self.value_id)
+        return self._network.manager.getValueHelp(self.value_id).decode("UTF-8")
 
     @help.setter
     def help(self, value):
@@ -161,7 +162,7 @@ class ZWaveValue(ZWaveObject):
         :type value: str
 
         """
-        self._network.manager.setValueHelp(self.value_id, value)
+        self._network.manager.setValueHelp(self.value_id, value.encode("UTF-8"))
 
     @property
     def units(self):
@@ -171,7 +172,7 @@ class ZWaveValue(ZWaveObject):
         :rtype: str
 
         """
-        return self._network.manager.getValueUnits(self.value_id)
+        return self._network.manager.getValueUnits(self.value_id).decode("UTF-8")
 
     @units.setter
     def units(self, value):
@@ -182,7 +183,7 @@ class ZWaveValue(ZWaveObject):
         :type value: str
 
         """
-        self._network.manager.setValueUnits(self.value_id, value)
+        self._network.manager.setValueUnits(self.value_id, value.encode("UTF-8"))
 
     @property
     def max(self):
@@ -266,7 +267,12 @@ class ZWaveValue(ZWaveObject):
         :rtype: depending of the type of the value
 
         """
-        return self._network.manager.getValue(self.value_id)
+        data = self._network.manager.getValue(self.value_id)
+
+        if self.type in ("String", "List"):
+            data = data.decode("UTF-8")
+
+        return data
 
     @data.setter
     def data(self, value):
@@ -283,6 +289,9 @@ class ZWaveValue(ZWaveObject):
         :type value: str
 
         """
+        if self.type == "String":
+            value = value.encode("UTF-8")
+
         self._network.manager.setValue(self.value_id, value)
 
     @property
@@ -342,7 +351,7 @@ class ZWaveValue(ZWaveObject):
         logging.debug("check_data type :%s" % (self.type))
         if self.type == "Bool":
             new_data = data
-            if isinstance(data, basestring) :
+            if isstr(data):
                 if data == "False" or data == "false" or data == "0":
                     new_data = False
                 else :
@@ -383,16 +392,16 @@ class ZWaveValue(ZWaveObject):
                 elif new_data > 32767 :
                     new_data = 32767
         elif self.type == "String":
-                new_data = data
+                new_data = data.encode("UTF-8")
         elif self.type == "Button":
             new_data = data
-            if isinstance(data, basestring) :
+            if isstr(data) :
                 if data == "False" or data == "false" or data == "0":
                     new_data = False
                 else :
                     new_data = True
         elif self.type == "List":
-            if isinstance(data, basestring) :
+            if isstr(data) :
                 if data in self.data_items:
                     new_data = data
                 else :

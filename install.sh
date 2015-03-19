@@ -1,5 +1,11 @@
 #!/bin/bash -e
 
+if [ "$1" == "--python3" ]; then
+  PYEX=python3
+else
+  PYEX=python
+fi
+
 echo "-----------------------------------------------------------------"
 echo "|   Uninstall python-openzwave                                  |"
 echo "-----------------------------------------------------------------"
@@ -10,12 +16,12 @@ set -e
 echo "-----------------------------------------------------------------"
 echo "|   Install python-openzwave  lib                               |"
 echo "-----------------------------------------------------------------"
-python setup-lib.py install --record install.files
+$PYEX setup-lib.py install --record install.files
 
 echo "-----------------------------------------------------------------"
 echo "|   Install python-openzwave  api                               |"
 echo "-----------------------------------------------------------------"
-python setup-api.py install --record install.tmp
+$PYEX setup-api.py install --record install.tmp
 cat install.tmp >>install.files
 rm install.tmp
 rm -Rf python_openzwave_lib.egg-info >/dev/null 2>&1

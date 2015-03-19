@@ -24,7 +24,7 @@ You should have received a copy of the GNU General Public License
 along with python-openzwave. If not, see http://www.gnu.org/licenses.
 
 """
-from louie import dispatcher, All
+from .util import dispatcher
 import logging
 import libopenzwave
 import openzwave

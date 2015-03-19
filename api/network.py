@@ -26,7 +26,7 @@ along with python-openzwave. If not, see http://www.gnu.org/licenses.
 from collections import namedtuple
 import thread
 import time
-from louie import dispatcher, All
+from .util import dispatcher
 import logging
 import threading
 import libopenzwave
@@ -309,7 +309,7 @@ class ZWaveNetwork(ZWaveObject):
         """
         logging.debug("Start network.")
         self._manager.addWatcher(self.zwcallback)
-        self._manager.addDriver(self._options.device)
+        self._manager.addDriver(self._options.device.encode("UTF-8"))
 
     def stop(self, fire=True):
         """
@@ -334,7 +334,7 @@ class ZWaveNetwork(ZWaveObject):
             self._semaphore_nodes.acquire()
             self._manager.removeWatcher(self.zwcallback)
             time.sleep(1.0)
-            self._manager.removeDriver(self._options.device)
+            self._manager.removeDriver(self._options.device.encode("UTF-8"))
             self.nodes = None
             self._state = self.STATE_STOPPED
             if fire :
@@ -579,8 +579,8 @@ class ZWaveNetwork(ZWaveObject):
         :rtype: ZWaveValue
 
         """
-        for node in self.nodes.itervalues():
-            for val in node.values.itervalues() :
+        for node in self.nodes.values():
+            for val in node.values.values() :
                 if val.id_on_network == id_on_network:
                     return val
         return None

@@ -96,7 +96,7 @@ class ZWaveGroup(ZWaveObject):
         :rtype: int
 
         """
-        return self._network.manager.getGroupLabel(self.home_id, self._node_id, self.index)
+        return self._network.manager.getGroupLabel(self.home_id, self._node_id, self.index).decode("UTF-8")
 
     @property
     def max_associations(self):

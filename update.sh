@@ -8,13 +8,7 @@ git pull
 echo "-----------------------------------------------------------------"
 echo "|   Update sources of openzwave                                 |"
 echo "-----------------------------------------------------------------"
-if [ -d openzwave ]; then
-    cd openzwave
-    git pull
-    cd ..
-else
-    git clone git://github.com/OpenZWave/open-zwave.git openzwave
-fi
+git submodule update --init --recursive
 
 echo "-----------------------------------------------------------------"
 echo "|   Sources updated                                             |"
