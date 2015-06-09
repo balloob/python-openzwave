@@ -30,6 +30,13 @@ except ImportError:
     pass
 from openzwave.object import ZWaveObject
 
+try:
+    # Python 2
+    basestring
+except NameError:
+    # Python 3
+    basestring = str
+
 # Set default logging handler to avoid "No handler found" warnings.
 import logging
 try:  # Python 2.7+
